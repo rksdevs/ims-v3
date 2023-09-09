@@ -1,0 +1,22 @@
+.datatableContainer {
+    width: 100%;
+}
+
+.cellAction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewButton, .deleteButton {
+    color: #999696;
+    cursor: pointer;
+}
+
+.viewButton:hover {
+    color: #578b7a;
+}
+
+.deleteButton:hover {
+    color: #b47272;
+}

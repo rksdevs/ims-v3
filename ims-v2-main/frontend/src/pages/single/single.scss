@@ -1,0 +1,94 @@
+.singleContainer{
+    .container{
+        display: flex;
+        margin-top: 10px;
+    }
+}
+
+.single {
+    flex: 4;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+
+    .top {
+        display: flex;
+        gap: 20px;
+    }
+
+    .left {
+        /* height: fit-content; */
+        flex: 1;
+        -webkit-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        padding: 30px;
+        position: relative;
+        border-radius: 10px;
+        /* margin-top: 20px; */
+    }
+    
+    .editButton {
+        position: absolute;
+        padding: 3px 5px;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        -webkit-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        background-color: rgb(147 106 255 / 90%);
+        border-radius: 5px;
+        
+    }
+    
+    .singleTitle {
+        font-size: 25px;
+    }
+    
+    .item {
+        display: flex;
+        gap: 20px;
+        padding: 10px 0;
+    }
+    
+    .itemImg {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    
+    .details {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        justify-content: center;
+        gap: 20px
+    }
+    
+    .itemDetails {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .right {
+        flex: 2;
+    }
+    
+    .bottom {
+        -webkit-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+        padding: 30px;
+        position: relative;
+        border-radius: 10px;
+    }
+    
+    .bottomTitle h3 {
+        font-size: 25px;
+    }
+}
+
+
+

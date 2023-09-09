@@ -1,0 +1,55 @@
+.widgetsSm {
+    flex: 1;
+    -webkit-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.widgetsSmTitle {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.widgetsSmList {
+    list-style: none;
+    padding: 0%;
+}
+
+.widgetsSmListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.widgetsSmImg {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.widgetsSmProductName, .widgetsSmProductQuantity {
+    font-size: 18px;
+    color: #5550bd;
+}
+
+.widgetsSmButton{
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px -5px rgba(0,0,0,0.75);
+}
+
+.widgetsSmButton:hover {
+    background-color: rgb(147 106 255 / 90%);
+    box-shadow: none;
+}
