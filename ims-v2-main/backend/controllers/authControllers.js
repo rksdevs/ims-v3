@@ -70,11 +70,14 @@ try {
         {id: user._id, isAdmin: user.isAdmin}, 
         process.env.JWT_SECRET
         )
-
+    
+    console.log("token :" + token)
     //destructure the user object to send only required info
     const {password, isAdmin, ...otherDetails} = user._doc;
 
     res.cookie("access_token", token, {httpOnly: true}).status(200).json({...otherDetails, isAdmin})
+
+    console.log(req.cookies.access_token)
     
     
 } catch (error) {

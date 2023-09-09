@@ -4,37 +4,22 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import LanguageIcon from '@mui/icons-material/Language';
 import SettingsIcon from '@mui/icons-material/Settings';
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Topbar = () => {
+    const {userDetails, login, getProductData, productData} = useContext(AuthContext)
     const [user, setUser] = useState("")
-    const [productData, setProductData] = useState([])
-    const login = async() => {
-        try {
-            let url = "auth/login";
-            const response = axios.post(url, {"username": "testUser1",
-            "password": "testUser1P"
-           });
-            setUser((await response).data.username)
-            
-        } catch (error) {
-            console.log(error);
-        }
+    // const [productData, setProductData] = useState([])
+    let url = "auth/login";
+
+    const handleLogin = () => {
+        login(url, "testUser1", "testUser1P")
     }
 
-    const getProductData = async() => {
-        try {
-            let response = axios.get("http://localhost:3300/api/product/allProducts")
-    
-            setProductData((await response).data)
-    
-        } catch (error) {
-            console.log(error) 
-        }
-    }
-
-    console.log(user)
-    console.log(productData)
+    useEffect(()=>{
+        console.log(userDetails);
+    }, [userDetails])
   return (
     <div className="topbar">
         <div className="topbarWrapper">
@@ -49,10 +34,10 @@ const Topbar = () => {
             <div className="topbarIconContainer">
                 <LanguageIcon />
             </div>
-            <div className="topbarIconContainer" onClick={getProductData} >
+            <div className="topbarIconContainer" >
                 <SettingsIcon />
             </div>
-            <img src={NoImg} alt="Profile Pic" className="topAvatar" onClick={login} />
+            <img src={NoImg} alt="Profile Pic" className="topAvatar" onClick={handleLogin} />
         </div>
         </div>
     </div>

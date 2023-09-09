@@ -1,56 +1,26 @@
 import "./widgetsSm.scss"
 import ProductOne from "../../assets/images/product1.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 // import { productData } from "../../customHooks/callApi";
 
 const WidgetsSm = () => {
-    const [productList, setproductList] = useState([]);
-    // console.log(productData)
+    const {productData} = useContext(AuthContext);
 
   return (
     <div className="widgetsSm">
-        <h3 className="widgetsSmTitle">Stock Insights</h3>
+        <h3 className="widgetsSmTitle" >Stock Insights</h3>
         <ul className="widgetsSmList">
-            <li className="widgetsSmListItem">
+            {productData.map((item)=>(<li className="widgetsSmListItem" key={item._id}>
                 <img src={ProductOne} alt="product one" className="widgetsSmImg" />
-                <span className="widgetsSmProductName">Atlas Bicycle</span>
-                <span className="widgetsSmProductQuantity">100</span>
+                <span className="widgetsSmProductName">{item.productName}</span>
+                <span className="widgetsSmProductQuantity">{item.quantity}</span>
                 <button className="widgetsSmButton">
                     View
                 </button>
-            </li>
-            <li className="widgetsSmListItem">
-                <img src={ProductOne} alt="product one" className="widgetsSmImg" />
-                <span className="widgetsSmProductName">Atlas Bicycle</span>
-                <span className="widgetsSmProductQuantity">50</span>
-                <button className="widgetsSmButton">
-                    View
-                </button>
-            </li>
-            <li className="widgetsSmListItem">
-                <img src={ProductOne} alt="product one" className="widgetsSmImg" />
-                <span className="widgetsSmProductName">Atlas Bicycle</span>
-                <span className="widgetsSmProductQuantity">200</span>
-                <button className="widgetsSmButton">
-                    View
-                </button>
-            </li>
-            <li className="widgetsSmListItem">
-                <img src={ProductOne} alt="product one" className="widgetsSmImg" />
-                <span className="widgetsSmProductName">Atlas Bicycle</span>
-                <span className="widgetsSmProductQuantity">30</span>
-                <button className="widgetsSmButton">
-                    View
-                </button>
-            </li>
-            <li className="widgetsSmListItem">
-                <img src={ProductOne} alt="product one" className="widgetsSmImg" />
-                <span className="widgetsSmProductName">Atlas Bicycle</span>
-                <span className="widgetsSmProductQuantity">10</span>
-                <button className="widgetsSmButton">
-                    View
-                </button>
-            </li>
+            </li>))}
         </ul>
     </div>
   )

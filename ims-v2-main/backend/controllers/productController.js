@@ -87,6 +87,19 @@ const editProduct = async(req,res) => {
     }
 }
 
+//get one product
+
+const getSpecificProduct = async(req,res) => {
+    try {
+        let product = await Product.findById(req.params.id);
+        res.status(200).json(product);
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(error); 
+    }
+}
+
 //get all products
 
 const getAllProducts = async(req,res) => {
@@ -128,4 +141,4 @@ const getAllProducts = async(req,res) => {
     }
 }
 
-module.exports = {addProduct, deleteProduct, editProduct, getAllProducts}
+module.exports = {addProduct, deleteProduct, editProduct, getAllProducts, getSpecificProduct}

@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const verifyAdmin = async (req,res, next) => {
-    // console.log(req.cookies.access_token)
+    console.log(req.cookies.access_token)
 
     try {
 
         //find the authorization token
         const token = req.cookies.access_token;
-        // console.log(token)
+        console.log(token)
 
         if(!token) {
             return res.status(400).send({msg:"No Authorization Cookie Found!"})
