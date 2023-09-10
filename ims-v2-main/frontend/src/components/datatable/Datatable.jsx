@@ -5,15 +5,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 
-const Datatable = () => {
-  const [newBrandData, setNewBrandData] = useState([]);
+const Datatable = ({data}) => {
 
-  // useEffect(()=>{
-  //   // const res = fetch("api/brands/allBrands");
-  //   // // console.log(res)
-  //   // setNewBrandData(res.data);
-  //   // console.log(newBrandData)
-  // },[newBrandData])
+  const [newData, setNewData] = useState([]);
+
+  useEffect(()=>{
+    console.log("here", data);
+    setNewData(data);
+    console.log("newData", newData)
+  },[data])
 
     const actionColumn = [
         {field: "action", headerName: "Actions", width: 160, renderCell: ()=> {
@@ -26,20 +26,19 @@ const Datatable = () => {
         }}
     ]
 
-  return (
-    <div className='datatableContainer'>
-        <DataGrid className="datatable"
-        rows={brandData.rows}
-        columns={brandData.columns.concat(actionColumn)}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
-    </div>
+  return ( newData ? (<div className='datatableContainer'>
+    <DataGrid className="datatable"
+    rows={newData?.rows}
+    columns={newData?.columns}
+    initialState={{
+      pagination: {
+        paginationModel: { page: 0, pageSize: 5 },
+      },
+    }}
+    pageSizeOptions={[5, 10]}
+    checkboxSelection
+  />
+</div>) : (<div>Loading</div>)
   )
 }
 

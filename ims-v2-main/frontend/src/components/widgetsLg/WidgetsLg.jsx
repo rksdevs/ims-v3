@@ -27,50 +27,6 @@ const WidgetsLg = () => {
                 <td className="widgetsLgAmount">₹2000</td>
                 <td className="widgetsLgButton"><button>View</button></td>
             </tr>))}
-            {/* <tr className="widgetsLgTr">
-                <td className="widgetsLgCust">
-                    <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
-                    <span className="widgetsLgCustName">John Doe</span>
-                </td>
-                <td className="widgetsLgDate">06-May-23</td>
-                <td className="widgetsLgProduct">Atlas Bicycle</td>
-                <td className="widgetsLgBill">Bill-101</td>
-                <td className="widgetsLgAmount">₹2000</td>
-                <td className="widgetsLgButton"><button>View</button></td>
-            </tr>
-            <tr className="widgetsLgTr">
-                <td className="widgetsLgCust">
-                    <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
-                    <span className="widgetsLgCustName">John Doe</span>
-                </td>
-                <td className="widgetsLgDate">06-May-23</td>
-                <td className="widgetsLgProduct">Atlas Bicycle</td>
-                <td className="widgetsLgBill">Bill-101</td>
-                <td className="widgetsLgAmount">₹2000</td>
-                <td className="widgetsLgButton"><button>View</button></td>
-            </tr>
-            <tr className="widgetsLgTr">
-                <td className="widgetsLgCust">
-                    <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
-                    <span className="widgetsLgCustName">John Doe</span>
-                </td>
-                <td className="widgetsLgDate">06-May-23</td>
-                <td className="widgetsLgProduct">Atlas Bicycle</td>
-                <td className="widgetsLgBill">Bill-101</td>
-                <td className="widgetsLgAmount">₹2000</td>
-                <td className="widgetsLgButton"><button>View</button></td>
-            </tr>
-            <tr className="widgetsLgTr">
-                <td className="widgetsLgCust">
-                    <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
-                    <span className="widgetsLgCustName">John Doe</span>
-                </td>
-                <td className="widgetsLgDate">06-May-23</td>
-                <td className="widgetsLgProduct">Atlas Bicycle</td>
-                <td className="widgetsLgBill">Bill-101</td>
-                <td className="widgetsLgAmount">₹2000</td>
-                <td className="widgetsLgButton"><button>View</button></td>
-            </tr> */}
         </table>
     </div>
   )

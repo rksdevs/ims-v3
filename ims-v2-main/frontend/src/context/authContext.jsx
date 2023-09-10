@@ -8,7 +8,8 @@ export const AuthContext = createContext();
 const AuthProvider = ({children}) => {
     const [userDetails, setuserDetails] = useState(null)
     const [productData, setProductData] = useState([]);
-    const [orderData, setOrderData] = useState([])
+    const [orderData, setOrderData] = useState([]);
+    const [apiData, setApiData] = useState([]);
 
     const login = async(url, username, password) => {
         try {
@@ -26,16 +27,67 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    const getProductData = async() => {
-        try {
-            let response = axios.get("product/allProducts", {withCredentials: true})
+    const createTableData = (data) => {
+        // const newTableData = {
+        //   columns: [],
+        //   rows: []
+        // }
     
+        // if (!Array.isArray(data) || data.length === 0) {
+        //   throw new Error("Data must be a non empty array of objects");
+        // }
+    
+        //setup columns 
+        let keys = Object.keys(data[0]);
+    
+        let columns = keys?.map((elem)=> ({
+          field: elem,
+          headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
+          width: 160
+        }));
+    
+        //add serial number
+    
+        columns.unshift({
+          field: "slNo",
+          headerName: "Sl No",
+          width: 160
+        })
+    
+        //setup rows
+        let rows = data?.map((obj, index)=>{
+          let rowObj = {slNo: index + 1};
+          keys?.forEach((key)=>{
+            if (key !== "_id") {
+              rowObj[key]= obj[key];
+            }
+          });
+          return rowObj;
+        })
+    
+        return {
+          columns,
+          rows
+        }
+      }
+
+    const getProductData = async() => {
+        let dataForTable;
+        try {
+            let response = axios.get("product/allProducts", {withCredentials: true});
+    
+        //    let dataForTable=  setProductData((await response).data)
             setProductData((await response).data)
+            // dataForTable = productData;
     
         } catch (error) {
             console.log(error) 
         }
-        console.log("getprod called")
+        // console.log("getprod called")
+
+        // let productTableData = createTableData(productData);
+        // setApiData(productTableData);
+
     }
 
     const getOrderData = async () => {
@@ -47,7 +99,7 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData}}>
+    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData}}>
         {children}
     </AuthContext.Provider>)
 }

@@ -129,10 +129,17 @@ const getAllProducts = async(req,res) => {
     } else if (qBrand) {
         products = await Product.find({qBrand})
     } else {
-        products = await Product.find();
+        products = await Product.find().select("productName _id image quantity price size color brand category");
     }
 
-    res.status(200).json(products);
+    // const {productName, id="_id", brand, size, color, quantity} = products._doc;
+
+    const modifiedProduct = products.map((product)=>({
+        ...product._doc,
+        id: product._id
+    }))
+
+    res.status(200).json(modifiedProduct);
      
     } catch (error) {
         console.log(error);

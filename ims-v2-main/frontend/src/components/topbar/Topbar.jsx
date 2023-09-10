@@ -14,7 +14,8 @@ const Topbar = () => {
     let url = "auth/login";
 
     const handleLogin = () => {
-        login(url, "testUser1", "testUser1P")
+        login(url, "testUser1", "testUser1P");
+        getProductData ();
     }
 
     useEffect(()=>{
