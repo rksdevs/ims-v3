@@ -6,14 +6,18 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 // import { productData } from "../../customHooks/callApi";
 
-const WidgetsSm = () => {
+const WidgetsSm = ({data}) => {
     const {productData} = useContext(AuthContext);
+
+    useEffect(()=>{
+        console.log("data from sm widget", data)
+    }, [data])
 
   return (
     <div className="widgetsSm">
         <h3 className="widgetsSmTitle" >Stock Insights</h3>
         <ul className="widgetsSmList">
-            {productData.map((item)=>(<li className="widgetsSmListItem" key={item._id}>
+            {data?.map((item)=>(<li className="widgetsSmListItem" key={item._id}>
                 <img src={ProductOne} alt="product one" className="widgetsSmImg" />
                 <span className="widgetsSmProductName">{item.productName}</span>
                 <span className="widgetsSmProductQuantity">{item.quantity}</span>

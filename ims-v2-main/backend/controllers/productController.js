@@ -132,7 +132,6 @@ const getAllProducts = async(req,res) => {
         products = await Product.find().select("productName _id image quantity price size color brand category");
     }
 
-    // const {productName, id="_id", brand, size, color, quantity} = products._doc;
 
     const modifiedProduct = products.map((product)=>({
         ...product._doc,

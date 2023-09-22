@@ -26,19 +26,7 @@ const Datatable = ({data}) => {
         }}
     ]
 
-  return ( newData ? (<div className='datatableContainer'>
-    <DataGrid className="datatable"
-    rows={newData?.rows}
-    columns={newData?.columns}
-    initialState={{
-      pagination: {
-        paginationModel: { page: 0, pageSize: 5 },
-      },
-    }}
-    pageSizeOptions={[5, 10]}
-    checkboxSelection
-  />
-</div>) : (<div>Loading</div>)
+  return ( newData && newData.length !== 0 ? (<div>ehre</div>) : (<div>Loading</div>)
   )
 }
 

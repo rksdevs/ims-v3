@@ -10,6 +10,7 @@ const AuthProvider = ({children}) => {
     const [productData, setProductData] = useState([]);
     const [orderData, setOrderData] = useState([]);
     const [apiData, setApiData] = useState([]);
+    const [dataForList, setDataForList] = useState([])
 
     const login = async(url, username, password) => {
         try {
@@ -20,8 +21,6 @@ const AuthProvider = ({children}) => {
             setuserDetails(data);
             getProductData();
             getOrderData ();
-
-            
         } catch (error) {
             console.log(error);
         }
@@ -75,9 +74,12 @@ const AuthProvider = ({children}) => {
         let dataForTable;
         try {
             let response = axios.get("product/allProducts", {withCredentials: true});
+
+            // dataForTable = (await response).data;
     
         //    let dataForTable=  setProductData((await response).data)
-            setProductData((await response).data)
+            setProductData((await response).data);
+            // console.log("get prod called", productData);
             // dataForTable = productData;
     
         } catch (error) {
@@ -87,6 +89,8 @@ const AuthProvider = ({children}) => {
 
         // let productTableData = createTableData(productData);
         // setApiData(productTableData);
+        // setProductData(createTableData(dataForTable));
+        setDataForList(createTableData(productData))
 
     }
 
@@ -99,7 +103,12 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData}}>
+    // useEffect(()=>{
+    //     productData? localStorage.setItem("orderData", JSON.stringify(orderData)): null;
+    //     orderData? localStorage.setItem("productData", JSON.stringify(productData)): null;
+    // }, [productData, orderData])
+
+    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData, dataForList}}>
         {children}
     </AuthContext.Provider>)
 }

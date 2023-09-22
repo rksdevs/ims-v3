@@ -1,10 +1,13 @@
 import "./widgetsLg.scss"
 import NoImg from "../../assets/images/NoImg.png"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { AuthContext } from "../../context/authContext"
 
-const WidgetsLg = () => {
+const WidgetsLg = ({data}) => {
     const {orderData} = useContext(AuthContext)
+    useEffect(()=>{
+        console.log("order from widget", orderData)
+    }, [orderData])
   return (
     <div className="widgetsLg">
         <h3 className="widgetsLgTitle">Recent Sales</h3>
@@ -16,7 +19,7 @@ const WidgetsLg = () => {
                 <th className="widgetsLgTh">Bill No</th>
                 <th className="widgetsLgTh">Amount</th>
             </tr>
-            {orderData.map((item)=>(<tr className="widgetsLgTr" key={item._id}>
+            {data?.map((item)=>(<tr className="widgetsLgTr" key={item._id}>
                 <td className="widgetsLgCust">
                     <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
                     <span className="widgetsLgCustName">{item.custName}</span>

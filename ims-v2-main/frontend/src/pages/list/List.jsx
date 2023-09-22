@@ -8,20 +8,10 @@ import { AuthContext } from "../../context/authContext";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const List = () => {
+const List = ({data}) => {
   const pathName = useLocation().pathname.slice(1).toLocaleLowerCase();
-  const {productData, getProductData, apiData} = useContext(AuthContext)
-  const productColumnsData = [
-    { field: '_id', headerName: 'ID', width: 160 },
-    { field: 'productName', headerName: 'Name', width: 160 },
-    { field: 'image', headerName: 'Image', width: 160 },
-    { field: 'size', headerName: 'Size', width: 160 },
-    { field: 'quantity', headerName: 'Quantity', width: 160 },
-    { field: 'price', headerName: 'Price', width: 160 },
-    { field: 'description', headerName: 'Description', width: 160 },
-    { field: 'category', headerName: 'Category', width: 160 },
-    { field: 'color', headerName: 'Color', width: 160 }
-  ];
+  // const {productData, getProductData, apiData} = useContext(AuthContext)
+  
 
   const actionColumn = [
     {field: "action", headerName: "Actions", width: 160, renderCell: ()=> {
@@ -52,9 +42,6 @@ const List = () => {
     //setup columns 
     let keys = Object.keys(data[0]);
 
-    // console.log("keys", keys);
-    // keys.push("id");
-
     let columns = keys.filter((key)=>key !== "_id").map((elem)=> ({
       field: elem,
       headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
@@ -77,6 +64,8 @@ const List = () => {
       keys.forEach((key)=>{
         if (key !== "_id") {
           rowObj[key]= obj[key];
+        } else if (key === "brand") {
+          rowObj[key] = obj[key].brandName;
         } else {
           rowObj.id = obj[key];
         }
@@ -92,11 +81,11 @@ const List = () => {
 
 
   useEffect(()=>{
-    console.log(productData)
-    setTableData(createTableData(productData));
+    console.log(data)
+    setTableData(createTableData(data));
     console.log(tableData)
 
-  }, [apiData, productData, pathName])
+  }, [pathName, data])
 
   //based on pathname we need to create data set which needs to be spanned in the list below
   
@@ -117,7 +106,7 @@ const List = () => {
               <h1>{pathName}</h1>
           </div>
           <div className="bottom">
-            <Datatable data= {tableData}/> 
+            {tableData && <Datatable data= {tableData}/>} 
           </div>  
         </div>
       </div>
