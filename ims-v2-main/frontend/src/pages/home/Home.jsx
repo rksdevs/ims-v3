@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/authContext"
 
 const Home = () => {
   const {userDetails, login, productData, orderData}= useContext(AuthContext);
+  console.log("userDetails", userDetails)
   return (
     <div className="homeContainer">
       <Topbar login= {login}/>
