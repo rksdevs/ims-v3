@@ -13,11 +13,11 @@ import { AuthContext } from "../../context/authContext"
 //need to send these values from app page, use login/logout, use reducer
 
 const Home = () => {
-  const {userDetails, login, productData, orderData}= useContext(AuthContext);
+  const {userDetails, productData, orderData}= useContext(AuthContext);
   console.log("userDetails", userDetails)
   return (
     <div className="homeContainer">
-      <Topbar login= {login}/>
+      <Topbar/>
       <div className="container">
         <Sidebar />
         <div className="home">
