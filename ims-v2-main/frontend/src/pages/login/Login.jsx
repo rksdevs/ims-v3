@@ -1,8 +1,10 @@
 import "./login.scss"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 
 function Login({login}) {
+    // const {userDetails} = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,7 +13,8 @@ function Login({login}) {
         event.preventDefault();
         // Handle login logic here
         login("auth/login", username, password);
-        navigate("/home");
+        // console.log(userDetails, "from login");
+        navigate("/");
     };
 
     return (

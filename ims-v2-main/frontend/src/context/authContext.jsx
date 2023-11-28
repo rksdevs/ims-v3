@@ -11,6 +11,7 @@ const AuthProvider = ({children}) => {
     const [orderData, setOrderData] = useState([]);
     const [apiData, setApiData] = useState([]);
     const [dataForList, setDataForList] = useState([])
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = async(url, username, password) => {
         try {
@@ -19,8 +20,12 @@ const AuthProvider = ({children}) => {
             });
             let data = (await response).data;
             setuserDetails(data);
-            getProductData();
-            getOrderData ();
+            setIsAuthenticated(true);
+            userDetails && localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            isAuthenticated && localStorage.setItem("isLoggedIn", true);
+            console.log(userDetails, "userDetails")
+            // getProductData();
+            // getOrderData ();
         } catch (error) {
             console.log(error);
         }
@@ -37,7 +42,7 @@ const AuthProvider = ({children}) => {
         // }
     
         //setup columns 
-        let keys = Object.keys(data[0]);
+        let keys = Object.keys(data?.[0]);
     
         let columns = keys?.map((elem)=> ({
           field: elem,
@@ -68,10 +73,10 @@ const AuthProvider = ({children}) => {
           columns,
           rows
         }
-      }
+    }
 
     const getProductData = async() => {
-        let dataForTable;
+        // let dataForTable;
         try {
             let response = axios.get("product/allProducts", {withCredentials: true});
 
@@ -81,17 +86,10 @@ const AuthProvider = ({children}) => {
             setProductData((await response).data);
             // console.log("get prod called", productData);
             // dataForTable = productData;
-    
+            setDataForList(createTableData(productData))
         } catch (error) {
             console.log(error) 
         }
-        // console.log("getprod called")
-
-        // let productTableData = createTableData(productData);
-        // setApiData(productTableData);
-        // setProductData(createTableData(dataForTable));
-        setDataForList(createTableData(productData))
-
     }
 
     const getOrderData = async () => {
@@ -103,12 +101,13 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    // useEffect(()=>{
-    //     productData? localStorage.setItem("orderData", JSON.stringify(orderData)): null;
-    //     orderData? localStorage.setItem("productData", JSON.stringify(productData)): null;
-    // }, [productData, orderData])
+    useEffect(()=>{
+        console.log("triggered");
+        getProductData();
+        getOrderData();
+    }, [userDetails])
 
-    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData, dataForList}}>
+    return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData, dataForList, isAuthenticated, getOrderData }}>
         {children}
     </AuthContext.Provider>)
 }

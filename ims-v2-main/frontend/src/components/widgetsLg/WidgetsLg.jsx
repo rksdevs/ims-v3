@@ -1,13 +1,19 @@
 import "./widgetsLg.scss"
 import NoImg from "../../assets/images/NoImg.png"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../context/authContext"
 
 const WidgetsLg = ({data}) => {
-    const {orderData} = useContext(AuthContext)
-    useEffect(()=>{
-        console.log("order from widget", orderData)
-    }, [orderData])
+    // const {getOrderData} = useContext(AuthContext)
+    // const [orderData, setOrderData] = useState([]);
+    // useEffect(()=>{
+    //     console.log("order from widget", orderData)
+    //     let getData = async () => {
+    //         let data = await getOrderData();
+    //         setOrderData(data);
+    //     }
+    //     getData();
+    // }, []);
   return (
     <div className="widgetsLg">
         <h3 className="widgetsLgTitle">Recent Sales</h3>
