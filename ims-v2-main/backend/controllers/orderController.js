@@ -74,7 +74,9 @@ const getAllOrder = async (req, res) => {
             return res.status(400).json({msg: "Unauthorized!"});
         }
 
-        const allOrders = await Order.find().populate('items.productId', 'productName');
+        const projection = {_id: 1, billNumber: 1, custName: 1, custPhone: 1, netAmount: 1, date: 1};
+
+        const allOrders = await Order.find().select(projection).populate('items.productId', 'productName');
         //the above line with the help of populate we are including the product name of from the reference product schema in the items.productId field
 
         res.status(200).json(allOrders);

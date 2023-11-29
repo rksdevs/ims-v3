@@ -72,7 +72,7 @@ const Sidebar = () => {
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Orders</h3>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={()=>navigate("/orders")}>
                         <ShoppingCartIcon className="sidebarIcon"/>
                         All Orders
                     </li>

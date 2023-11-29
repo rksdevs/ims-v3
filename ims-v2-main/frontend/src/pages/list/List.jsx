@@ -1,7 +1,7 @@
 import "./list.scss"
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import Datatable from '../../components/datatable/Datatable';
+import EnhancedTable from '../../components/datatable/EnhancedTable';
 import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const List = ({data}) => {
   const pathName = useLocation().pathname.slice(1).toLocaleLowerCase();
-  // const {productData, getProductData, apiData} = useContext(AuthContext)
+  const {productData, orderData, getProductData, apiData} = useContext(AuthContext)
   
 
   const actionColumn = [
@@ -26,7 +26,8 @@ const List = ({data}) => {
 
   const [tableData, setTableData] = useState({});
 
-  const createTableData = (data) => {
+  const createTableData = (data, type) => {
+    console.log(data, "testing for table");
     if (!data || data.length === 0) {
       // Handle the case where data is null, undefined, or empty
       return {
@@ -41,12 +42,49 @@ const List = ({data}) => {
 
     //setup columns 
     let keys = Object.keys(data[0]);
+    let columns = [];
+    let rows = [];
 
-    let columns = keys.filter((key)=>key !== "_id").map((elem)=> ({
-      field: elem,
-      headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
-      width: 160
-    }));
+    //setup rows
+    let setupRows = (data) => {
+      data.map((obj, index)=>{
+        let rowObj = {slNo: index + 1};
+        keys.forEach((key)=>{
+          if (key !== "_id") {
+            rowObj[key]= obj[key];
+          } else if (key === "brand") {
+            rowObj[key] = obj[key].brandName;
+          } else {
+            rowObj.id = obj[key];
+          }
+        });
+        return rowObj;
+      })
+    }
+
+    if (type === "products") {
+      columns = keys.filter((key)=>key !== "_id" && key !== "image").map((elem)=> ({
+        field: elem,
+        headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
+        width: 160
+      }));
+      // rows = setupRows(data);
+
+    } else if (type === "orders") { 
+      columns = keys.filter((key)=> key !== "_id").map((elem)=> ({
+        field: elem,
+        headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
+        width: 160
+      }));
+
+      columns.push({
+        field: "id",
+        headerName: "Id",
+        width: 160
+      })
+      // rows = setupRows(data);
+    }
+
 
     //add serial number
 
@@ -56,10 +94,11 @@ const List = ({data}) => {
       width: 160
     })
 
-    columns.concat(actionColumn)
+    // columns.concat(actionColumn)
 
-    //setup rows
-    let rows = data.map((obj, index)=>{
+    
+
+    rows = data.map((obj, index)=>{
       let rowObj = {slNo: index + 1};
       keys.forEach((key)=>{
         if (key !== "_id") {
@@ -81,11 +120,38 @@ const List = ({data}) => {
 
 
   useEffect(()=>{
-    console.log(data)
-    setTableData(createTableData(data));
-    console.log(tableData)
 
-  }, [pathName, data])
+    if (pathName==="products") {
+      // console.log("product data", productData)
+      setTableData(createTableData(productData, "products"));
+      tableData && localStorage.setItem("productTableHeaders", JSON.stringify(tableData.columns));
+      console.log(tableData.columns, "from list useEffect - table data columns")
+    } else if (pathName==="orders") {
+      console.log("order data", orderData);
+      setTableData(createTableData(orderData, "orders"));
+      tableData && localStorage.setItem("orderTableHeaders", JSON.stringify(tableData.columns));
+      console.log(tableData.columns, "from list useEffect - table data columns")
+
+    }
+
+  }, [pathName, productData, orderData])
+
+  useEffect(()=>{
+
+    if (pathName==="products") {
+      // console.log("product data", productData)
+      // setTableData(createTableData(productData));
+      tableData && localStorage.setItem("productTableHeaders", JSON.stringify(tableData.columns));
+      // console.log(tableData.columns, "from list useEffect - table data columns")
+    } else if (pathName==="orders") {
+      // console.log("order data", orderData);
+      // setTableData(createTableData(orderData));
+      tableData && localStorage.setItem("orderTableHeaders", JSON.stringify(tableData.columns));
+      // console.log(tableData.columns, "from list useEffect - table data columns")
+
+    }
+
+  }, [pathName, tableData])
 
   //based on pathname we need to create data set which needs to be spanned in the list below
   
@@ -106,7 +172,7 @@ const List = ({data}) => {
               <h1>{pathName}</h1>
           </div>
           <div className="bottom">
-            {tableData && <Datatable data= {tableData}/>} 
+            {tableData && <EnhancedTable data= {tableData}/>} 
           </div>  
         </div>
       </div>

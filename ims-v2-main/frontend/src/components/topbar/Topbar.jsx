@@ -6,12 +6,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
     const {userDetails, login, getProductData, productData} = useContext(AuthContext)
     const [user, setUser] = useState("")
     // const [productData, setProductData] = useState([])
     let url = "auth/login";
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         login(url, "testUser1", "testUser1P");
@@ -24,7 +26,7 @@ const Topbar = () => {
   return (
     <div className="topbar">
         <div className="topbarWrapper">
-        <div className="topLeft">
+        <div className="topLeft" onClick={e=> (navigate("/"))} >
             <span className="logo">IMS Admin</span>
         </div>
         <div className="topRight">

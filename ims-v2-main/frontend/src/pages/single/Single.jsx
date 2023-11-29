@@ -5,7 +5,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import BrandOne from "../../assets/images/product1.jpg"
 import Chart from "../../components/chart/Chart";
 import { chartData } from "../../dummyData";
-import Datatable from "../../components/datatable/Datatable";
+import Datatable from "../../components/datatable/EnhancedTable";
 
 
 const Single = () => {
