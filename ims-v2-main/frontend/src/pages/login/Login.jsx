@@ -1,21 +1,28 @@
 import "./login.scss"
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 
 function Login({login}) {
-    // const {userDetails} = useContext(AuthContext);
+    const {userDetails, getProductData, getOrderData} = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Handle login logic here
         login("auth/login", username, password);
-        // console.log(userDetails, "from login");
-        navigate("/");
     };
+
+    useEffect(() => {
+        if(userDetails){
+            navigate("/");
+            userDetails && localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            localStorage.setItem("isLoggedIn", true);
+            getProductData();
+            getOrderData ();
+        }
+    }, [userDetails])
 
     return (
         <div className="login-container">

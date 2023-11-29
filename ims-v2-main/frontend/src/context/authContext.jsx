@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -12,6 +13,7 @@ const AuthProvider = ({children}) => {
     const [apiData, setApiData] = useState([]);
     const [dataForList, setDataForList] = useState([])
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const navigate = useNavigate();
 
     const login = async(url, username, password) => {
         try {
@@ -23,7 +25,8 @@ const AuthProvider = ({children}) => {
             setIsAuthenticated(true);
             userDetails && localStorage.setItem("userDetails", JSON.stringify(userDetails));
             isAuthenticated && localStorage.setItem("isLoggedIn", true);
-            console.log(userDetails, "userDetails")
+            // console.log(userDetails, "userDetails");
+            // navigate("/");
             // getProductData();
             // getOrderData ();
         } catch (error) {
@@ -76,17 +79,10 @@ const AuthProvider = ({children}) => {
     }
 
     const getProductData = async() => {
-        // let dataForTable;
         try {
             let response = axios.get("product/allProducts", {withCredentials: true});
-
-            // dataForTable = (await response).data;
-    
-        //    let dataForTable=  setProductData((await response).data)
             setProductData((await response).data);
-            // console.log("get prod called", productData);
-            // dataForTable = productData;
-            setDataForList(createTableData(productData))
+            // setDataForList(createTableData(productData))
         } catch (error) {
             console.log(error) 
         }
@@ -101,11 +97,11 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    useEffect(()=>{
-        console.log("triggered");
-        getProductData();
-        getOrderData();
-    }, [userDetails])
+    // useEffect(()=>{
+    //     console.log("triggered");
+    //     getProductData();
+    //     getOrderData();
+    // }, [userDetails])
 
     return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData, dataForList, isAuthenticated, getOrderData }}>
         {children}
