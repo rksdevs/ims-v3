@@ -34,49 +34,49 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    const createTableData = (data) => {
-        // const newTableData = {
-        //   columns: [],
-        //   rows: []
-        // }
+    // const createTableData = (data) => {
+    //     // const newTableData = {
+    //     //   columns: [],
+    //     //   rows: []
+    //     // }
     
-        // if (!Array.isArray(data) || data.length === 0) {
-        //   throw new Error("Data must be a non empty array of objects");
-        // }
+    //     // if (!Array.isArray(data) || data.length === 0) {
+    //     //   throw new Error("Data must be a non empty array of objects");
+    //     // }
     
-        //setup columns 
-        let keys = Object.keys(data?.[0]);
+    //     //setup columns 
+    //     let keys = Object.keys(data?.[0]);
     
-        let columns = keys?.map((elem)=> ({
-          field: elem,
-          headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
-          width: 160
-        }));
+    //     let columns = keys?.map((elem)=> ({
+    //       field: elem,
+    //       headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
+    //       width: 160
+    //     }));
     
-        //add serial number
+    //     //add serial number
     
-        columns.unshift({
-          field: "slNo",
-          headerName: "Sl No",
-          width: 160
-        })
+    //     columns.unshift({
+    //       field: "slNo",
+    //       headerName: "Sl No",
+    //       width: 160
+    //     })
     
-        //setup rows
-        let rows = data?.map((obj, index)=>{
-          let rowObj = {slNo: index + 1};
-          keys?.forEach((key)=>{
-            if (key !== "_id") {
-              rowObj[key]= obj[key];
-            }
-          });
-          return rowObj;
-        })
+    //     //setup rows
+    //     let rows = data?.map((obj, index)=>{
+    //       let rowObj = {slNo: index + 1};
+    //       keys?.forEach((key)=>{
+    //         if (key !== "_id") {
+    //           rowObj[key]= obj[key];
+    //         }
+    //       });
+    //       return rowObj;
+    //     })
     
-        return {
-          columns,
-          rows
-        }
-    }
+    //     return {
+    //       columns,
+    //       rows
+    //     }
+    // }
 
     const getProductData = async() => {
         try {
