@@ -14,6 +14,9 @@ const initialState = {
 export const fetchUser = createAsyncThunk('user/fetchUser', async({username, password}, {rejectWithValue})=>{
     try {
         const response = await axios.post('auth/login', {username, password})
+        if(response.data) {
+            localStorage.setItem('userDetails', JSON.stringify(response.data))
+        }
         return response.data
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) ||
@@ -23,10 +26,20 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async({username, pas
     }
 })
 
+export const userLogout = createAsyncThunk('user/userLogout', async()=> await localStorage.removeItem('userDetails'))
+
 //create slice
 const userSlice = createSlice({
     name: 'user',
     initialState,
+    // reducers: {
+    //     logout: (state)=>{
+    //         state.isLoading = false;
+    //         state.userDetails = {};
+    //         state.isLoggedIn = false;
+    //         state.error = ""
+    //     }
+    // },
     extraReducers: (builder)=> {
         builder.addCase(fetchUser.pending, (state)=> {
             state.isLoading = true;
@@ -43,7 +56,12 @@ const userSlice = createSlice({
             state.isLoggedIn = false;
             state.error = action.payload;
         })
+        builder.addCase(userLogout.fulfilled, (state)=>{
+            state.userDetails = {};
+            state.isLoggedIn = false;
+        })
     }
 })
 
-export default userSlice.reducer
+export default userSlice.reducer;
+// export const {logout} = userSlice.actions; 
