@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
-// import { productData } from "../../customHooks/callApi";
 
 const WidgetsSm = ({data}) => {
 

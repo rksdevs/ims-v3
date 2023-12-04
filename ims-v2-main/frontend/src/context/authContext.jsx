@@ -97,11 +97,6 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    // useEffect(()=>{
-    //     console.log("triggered");
-    //     getProductData();
-    //     getOrderData();
-    // }, [userDetails])
 
     return (<AuthContext.Provider value={{userDetails, login, getProductData, productData, orderData, apiData, dataForList, isAuthenticated, getOrderData }}>
         {children}

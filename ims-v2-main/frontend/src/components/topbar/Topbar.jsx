@@ -5,24 +5,24 @@ import LanguageIcon from '@mui/icons-material/Language';
 import SettingsIcon from '@mui/icons-material/Settings';
 import axios from "axios";
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../context/authContext";
+// import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
-    const {userDetails, login, getProductData, productData} = useContext(AuthContext)
+    // const {userDetails, login, getProductData, productData} = useContext(AuthContext)
     const [user, setUser] = useState("")
     // const [productData, setProductData] = useState([])
     let url = "auth/login";
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        login(url, "testUser1", "testUser1P");
-        getProductData ();
-    }
+    // const handleLogin = () => {
+    //     login(url, "testUser1", "testUser1P");
+    //     getProductData ();
+    // }
 
-    useEffect(()=>{
-        console.log(userDetails);
-    }, [userDetails])
+    // useEffect(()=>{
+    //     console.log(userDetails);
+    // }, [userDetails])
   return (
     <div className="topbar">
         <div className="topbarWrapper">
@@ -40,7 +40,7 @@ const Topbar = () => {
             <div className="topbarIconContainer" >
                 <SettingsIcon />
             </div>
-            <img src={NoImg} alt="Profile Pic" className="topAvatar" onClick={handleLogin} />
+            <img src={NoImg} alt="Profile Pic" className="topAvatar" />
         </div>
         </div>
     </div>

@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
 import { Navigate, BrowserRouter, Routes, Route, Outlet, useNavigate } from 'react-router-dom'
-import { useContext } from 'react';
-import { AuthContext } from '../context/authContext';
+// import { useContext } from 'react';
+// import { AuthContext } from '../context/authContext';
+import { useSelector } from 'react-redux'
 
-const ProtectedRoute = ({}) => {
+const ProtectedRoute = () => {
+    const isLoggedIn = useSelector((state)=>state.user.isLoggedIn)
     const navigate = useNavigate();
-    const {isAuthenticated} = useContext(AuthContext);
+    // const {isAuthenticated} = useContext(AuthContext);
 
     useEffect(() => {
-        if(!isAuthenticated){
+        if(!isLoggedIn){
             console.log("not authenticated")
             navigate("/login");
         }
-    }, [isAuthenticated])
+    }, [isLoggedIn, navigate])
 
 return (<Outlet />);
 }

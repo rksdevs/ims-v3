@@ -1,39 +1,72 @@
 import "./login.scss"
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../features/authSlice";
 
-function Login({login}) {
-    const {userDetails, getProductData, getOrderData} = useContext(AuthContext);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+function Login() {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    })
+
+    const {username, password} = formData;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {userDetails, isLoggedIn} = useSelector((state)=>state.user);
+
+    const onChange = (event) => {
+        event.preventDefault();
+        setFormData((prevState)=>(
+              {
+                ...prevState,
+                [event.target.name]: event.target.value
+              }
+        ))
+    }
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        login("auth/login", username, password);
+        const userdata = {
+            username,
+            password
+        }
+        dispatch(fetchUser(userdata));
     };
 
     useEffect(() => {
-        if(userDetails){
+        if(isLoggedIn){
             navigate("/");
             userDetails && localStorage.setItem("userDetails", JSON.stringify(userDetails));
             localStorage.setItem("isLoggedIn", true);
-            getProductData();
-            getOrderData ();
         }
-    }, [userDetails])
+    }, [userDetails, isLoggedIn, navigate])
 
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit}>
                 <label>
                     Username:
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                    <input type='text'
+                    className='form-control'
+                    id='username'
+                    name='username'
+                    value={username}
+                    onChange={onChange}
+                    placeholder='Enter your username'
+                    required />
                 </label>
                 <label>
                     Password:
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <input type='password'
+                    className='form-control'
+                    id='password'
+                    name='password'
+                    value={password}
+                    onChange={onChange}
+                    placeholder='Enter your password'
+                    required/>
                 </label>
                 <input type="submit" value="Submit" />
             </form>
