@@ -38,8 +38,6 @@ function Login() {
     useEffect(() => {
         if(isLoggedIn){
             navigate("/");
-            userDetails && localStorage.setItem("userDetails", JSON.stringify(userDetails));
-            localStorage.setItem("isLoggedIn", true);
         }
     }, [userDetails, isLoggedIn, navigate])
 

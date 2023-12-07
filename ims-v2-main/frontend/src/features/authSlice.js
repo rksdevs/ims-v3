@@ -16,6 +16,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async({username, pas
         const response = await axios.post('auth/login', {username, password})
         if(response.data) {
             localStorage.setItem('userDetails', JSON.stringify(response.data))
+            localStorage.setItem("isLoggedIn", true);
         }
         return response.data
     } catch (error) {
@@ -26,20 +27,18 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async({username, pas
     }
 })
 
-export const userLogout = createAsyncThunk('user/userLogout', async()=> await localStorage.removeItem('userDetails'))
+export const userLogout = createAsyncThunk('user/userLogout', ()=>  {
+    localStorage.removeItem('userDetails');
+    localStorage.removeItem('productData');
+    localStorage.removeItem('orderData');
+    localStorage.removeItem('isLoggedIn');
+}
+)
 
 //create slice
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    // reducers: {
-    //     logout: (state)=>{
-    //         state.isLoading = false;
-    //         state.userDetails = {};
-    //         state.isLoggedIn = false;
-    //         state.error = ""
-    //     }
-    // },
     extraReducers: (builder)=> {
         builder.addCase(fetchUser.pending, (state)=> {
             state.isLoading = true;

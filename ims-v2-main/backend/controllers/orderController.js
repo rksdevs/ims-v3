@@ -33,7 +33,7 @@ const updateOrder = async (req, res) => {
 
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, {new:true});
 
-        res.status(200).json(updateOrder);
+        res.status(200).json(updatedOrder);
 
         
     } catch (error) {
@@ -74,10 +74,30 @@ const getAllOrder = async (req, res) => {
             return res.status(400).json({msg: "Unauthorized!"});
         }
 
-        const projection = {_id: 1, billNumber: 1, custName: 1, custPhone: 1, netAmount: 1, date: 1};
-
-        const allOrders = await Order.find().select(projection).populate('items.productId', 'productName');
+        // const allOrders = await Order.find().select(projection).populate('items.productId', 'productName');
         //the above line with the help of populate we are including the product name of from the reference product schema in the items.productId field
+
+        const allOrders = await Order.aggregate([
+            {
+              $lookup: {
+                from: 'products', // Assuming the name of the 'Product' collection is 'products'
+                localField: 'items.productId',
+                foreignField: '_id',
+                as: 'itemDetails',
+              },
+            },
+            {
+              $project: {
+                _id: 1,
+                billNumber: 1,
+                custName: 1,
+                custPhone: 1,
+                netAmount: 1,
+                date: 1,
+                items: { $arrayElemAt: ['$itemDetails.productName', 0] },
+              },
+            },
+          ]);
 
         res.status(200).json(allOrders);
 

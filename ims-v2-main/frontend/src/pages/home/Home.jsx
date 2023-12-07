@@ -14,7 +14,7 @@ import { fetchOrders } from "../../features/order/orderService"
 
 //need to send these values from app page, use login/logout, use reducer
 
-const Home = ({user, product, order}) => {
+const Home = () => {
   const products = useSelector((state)=> state.products.products);
   const orders = useSelector((state)=>state.orders.orders)
   const dispatch = useDispatch();

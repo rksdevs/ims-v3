@@ -1,19 +1,7 @@
 import "./widgetsLg.scss"
 import NoImg from "../../assets/images/NoImg.png"
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../context/authContext"
 
 const WidgetsLg = ({data}) => {
-    // const {getOrderData} = useContext(AuthContext)
-    // const [orderData, setOrderData] = useState([]);
-    // useEffect(()=>{
-    //     console.log("order from widget", orderData)
-    //     let getData = async () => {
-    //         let data = await getOrderData();
-    //         setOrderData(data);
-    //     }
-    //     getData();
-    // }, []);
   return (
     <div className="widgetsLg">
         <h3 className="widgetsLgTitle">Recent Sales</h3>
@@ -31,7 +19,7 @@ const WidgetsLg = ({data}) => {
                     <span className="widgetsLgCustName">{item.custName}</span>
                 </td>
                 <td className="widgetsLgDate">{item.date}</td>
-                <td className="widgetsLgProduct">{item.items.map((elem)=>elem.productId.productName)}</td>
+                <td className="widgetsLgProduct">{item.items}</td>
                 <td className="widgetsLgBill">{item.billNumber}</td>
                 <td className="widgetsLgAmount">₹2000</td>
                 <td className="widgetsLgButton"><button>View</button></td>
