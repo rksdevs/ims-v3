@@ -1,14 +1,9 @@
 import "./list.scss"
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import EnhancedTable from '../../components/datatable/EnhancedTable';
 import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState, useMemo } from "react";
-import { AuthContext } from "../../context/authContext";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from '@mui/icons-material/Delete';
-import BasicTable from "../../components/datatable/BasicTable";
-import { useSelector } from "react-redux";
+import EnhancedTable from "../../components/datatable/EnhancedTable";
 
 const BrandList = () => {
   const [pathName, setPathname] = useState(useLocation().pathname.slice(1).toLocaleLowerCase());
@@ -26,7 +21,7 @@ const BrandList = () => {
               <h1>{pathName}</h1>
           </div>
           <div className="bottom">
-            {memoizedBrandData && <BasicTable tableDataToSend={memoizedBrandData}/>}
+            {memoizedBrandData && <EnhancedTable rows={memoizedBrandData.rows} headCells={memoizedBrandData.columns}/>}
           </div>  
         </div>
       </div>

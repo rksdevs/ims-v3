@@ -1,17 +1,6 @@
 import axios from "axios";
 
-// export const productData = async() => {
-//     try {
-//         let response = axios.get("http://localhost:3300/api/product/allProducts")
-
-//         return (await response).data
-
-//     } catch (error) {
-//         console.log(error) 
-//     }
-// }
-
-export const createTableData = ({data, type}) => {
+export const createEnhancedTableData = ({data, type}) => {
     // console.log(data, "testing for table");
     if (!data || data.length === 0) {
       console.log("data is null")
@@ -29,29 +18,33 @@ export const createTableData = ({data, type}) => {
 
     if (type === "products") {
       columns = keys.filter((key)=>key !== "_id" && key !== "image").map((elem)=> ({
-        field: elem,
-        headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
-        width: 160
+        id: elem,
+        label: elem.charAt(0).toUpperCase() + elem.slice(1),
+        numeric: !isNaN(data[0][elem]) && isFinite(data[0][elem]),
+        disablePadding: true
       }));
 
     } else if (type === "orders" || type === "brands") { 
       columns = keys.filter((key)=> key !== "_id").map((elem)=> ({
-        field: elem,
-        headerName: elem.charAt(0).toUpperCase() + elem.slice(1),
-        width: 160
+        id: elem,
+        label: elem.charAt(0).toUpperCase() + elem.slice(1),
+        numeric: !isNaN(data[0][elem]) && isFinite(data[0][elem]),
+        disablePadding: true
       }));
 
       columns.push({
-        field: "id",
-        headerName: "Id",
-        width: 160
+        id: "id",
+        label: "Id",
+        numeric: false,
+        disablePadding: true
       })
     }
 
     columns.unshift({
-      field: "slNo",
-      headerName: "Sl No",
-      width: 160
+      id: "slNo",
+      label: "Sl No",
+      numeric: true,
+      disablePadding: true
     })
     
     rows = data.map((obj, index)=>{

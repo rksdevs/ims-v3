@@ -5,7 +5,6 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import BrandOne from "../../assets/images/product1.jpg"
 import Chart from "../../components/chart/Chart";
 import { chartData } from "../../dummyData";
-import Datatable from "../../components/datatable/EnhancedTable";
 
 
 const Single = () => {
@@ -39,7 +38,7 @@ const Single = () => {
             <h3>Products of the Brand</h3>
           </div>
           <div className="bottomContents">
-            <Datatable />
+            {/* <Datatable /> */}
           </div>
         </div>
         </div>
