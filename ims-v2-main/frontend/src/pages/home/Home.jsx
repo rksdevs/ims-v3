@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { fetchProducts } from "../../features/product/productService"
 import { fetchOrders } from "../../features/order/orderService"
 import { fetchUser } from "../../features/authSlice"
+import { fetchBrands } from "../../features/brands/brandService"
 
 
 //need to send these values from app page, use login/logout, use reducer
@@ -20,14 +21,12 @@ const Home = () => {
   const products = useSelector((state)=> state.products.products);
   const orders = useSelector((state)=>state.orders.orders)
   const dispatch = useDispatch();
-  const [productData, setProductData] = useState([]);
-  const [orderData, setOrderData] = useState([]);
   
   useEffect(()=>{
     if (user) {
       dispatch(fetchProducts());
       dispatch(fetchOrders());
-      // fetchUser({user.})
+      dispatch(fetchBrands())
       //need to persist user state from
     }
   }, [])

@@ -34,7 +34,7 @@ export const createTableData = ({data, type}) => {
         width: 160
       }));
 
-    } else if (type === "orders") { 
+    } else if (type === "orders" || type === "brands") { 
       columns = keys.filter((key)=> key !== "_id").map((elem)=> ({
         accessor: elem,
         headerName: elem.charAt(0).toUpperCase() + elem.slice(1),

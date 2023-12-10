@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../features/authSlice";
 import { resetProducts } from "../../features/product/productSlice";
 import { resetOrders } from "../../features/order/orderSlice";
+import { resetBrands } from "../../features/brands/brandSlice";
 
 const Topbar = () => {
     const user = JSON.parse(localStorage.getItem('userDetails')) || null;
@@ -19,6 +20,7 @@ const Topbar = () => {
     const logout = ()=>{
         dispatch(resetOrders());
         dispatch(resetProducts());
+        dispatch(resetBrands());
         dispatch(userLogout());
         navigate('/login', {replace: true});
     }

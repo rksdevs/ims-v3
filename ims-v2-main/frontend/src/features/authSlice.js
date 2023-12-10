@@ -31,6 +31,7 @@ export const userLogout = createAsyncThunk('user/userLogout', ()=>  {
     localStorage.removeItem('userDetails');
     localStorage.removeItem('productData');
     localStorage.removeItem('orderData');
+    localStorage.removeItem('brandData');
     localStorage.removeItem('isLoggedIn');
 
 }

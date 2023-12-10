@@ -37,7 +37,7 @@ const Sidebar = () => {
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Brands</h3>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={()=>navigate("/brands")}>
                         <ListIcon className="sidebarIcon"/>
                         All Brands
                     </li>

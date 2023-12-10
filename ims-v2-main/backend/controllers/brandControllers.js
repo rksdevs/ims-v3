@@ -74,7 +74,13 @@ const deleteBrand = async(req,res) =>{
 
 const getAllBrands = async(req,res) => {
     try {
-        const allBrands = await Brand.find({status: "Active"});
+        const allBrands = await Brand.aggregate([{
+            $project: {
+                _id: 1, 
+                status: 1, 
+                brandName: 1
+            }
+        }])
         res.status(200).json(allBrands)
         
     } catch (error) {

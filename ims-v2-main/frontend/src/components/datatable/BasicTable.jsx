@@ -1,17 +1,18 @@
 import {useTable} from 'react-table';
 import './basictable.scss'
+import { useEffect, useState } from 'react';
 
 const BasicTable = ({tableDataToSend}) => {
 
     const tableInstance = useTable({
-        columns: tableDataToSend.columns,
-        data: tableDataToSend.rows
+        columns: tableDataToSend?.columns,
+        data: tableDataToSend?.rows
     })
 
     const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance
 
-  return <div>
-    <table {...getTableProps ()} className='basicTable'>
+  return <div> 
+    {tableDataToSend && <table {...getTableProps ()} className='basicTable'>
         <thead>
             {headerGroups?.map((headerGroup)=>(
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -39,7 +40,8 @@ const BasicTable = ({tableDataToSend}) => {
             })}
             
         </tbody>
-    </table>
+    </table>}
+
   </div>
 }
 
