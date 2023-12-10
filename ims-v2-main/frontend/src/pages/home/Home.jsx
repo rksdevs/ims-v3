@@ -7,22 +7,37 @@ import WidgetsSm from "../../components/widgetsSM/WidgetsSm"
 import WidgetsLg from "../../components/widgetsLg/WidgetsLg"
 import Topbar from "../../components/topbar/Topbar"
 import Sidebar from "../../components/sidebar/Sidebar"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { fetchProducts } from "../../features/product/productService"
 import { fetchOrders } from "../../features/order/orderService"
+import { fetchUser } from "../../features/authSlice"
 
 
 //need to send these values from app page, use login/logout, use reducer
 
 const Home = () => {
+  const user = JSON.parse(localStorage.getItem('userDetails')) || null;
   const products = useSelector((state)=> state.products.products);
   const orders = useSelector((state)=>state.orders.orders)
   const dispatch = useDispatch();
+  const [productData, setProductData] = useState([]);
+  const [orderData, setOrderData] = useState([]);
   
   useEffect(()=>{
-    dispatch(fetchProducts());
-    dispatch(fetchOrders());
+    if (user) {
+      dispatch(fetchProducts());
+      dispatch(fetchOrders());
+      // fetchUser({user.})
+      //need to persist user state from
+    }
   }, [])
+
+
+  if (!user) {
+    return <div>
+      Loading... home
+    </div>
+  }
   
   return (
     <div className="homeContainer">

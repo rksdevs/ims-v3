@@ -1,5 +1,5 @@
 import "./App.scss";
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate, useNavigate} from "react-router-dom";
 // import Sidebar from "./components/sidebar/Sidebar";
 // import Topbar from "./components/topbar/Topbar";
 import Home from "./pages/home/Home";
@@ -14,28 +14,36 @@ import { fetchOrders } from "./features/order/orderService";
 import { fetchProducts } from "./features/product/productService";
 
 function App() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') || false;
+    const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || null;
     const dispatch = useDispatch();
     const productData = JSON.parse(localStorage.getItem('productData')) || null;
     const orderData = JSON.parse(localStorage.getItem('orderData')) || null;
 
-    const memoizedProductData = useMemo(()=>productData, [])
-    const memoizedOrderData = useMemo(()=>orderData, [])
+    const memoizedProductData = useMemo(()=>productData, [productData])
+    const memoizedOrderData = useMemo(()=>orderData, [orderData])
 
-    useEffect(()=>{
-      if(isLoggedIn) {
-        dispatch(fetchProducts());
-        dispatch(fetchOrders());
-      }
-    }, [isLoggedIn]);
+
+    // useEffect(()=>{
+    //   if (user) {
+    //     dispatch(fetchProducts());
+    //     dispatch(fetchOrders());
+    //   }
+    // }, [user])
+
+    // <Route path="/" element={user ? <Navigate to="/" /> : <Home/>}/> -- this causes to page to show empty when reloaded incorrect statement
 
   return (
     <div >
       <BrowserRouter>
         <Routes>
-            <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login/>}/>
+            {/* <Route path="/login" element={isLoggedIn ? <Navigate to='/' /> : <Login />}/> 
+             */}
+             {/* <Route element={<ProtectedRoute />}>
+              <Route path="/login" element={<Login />}/>
+            </Route> */}
+            <Route path="/login" element= {<Login />}/>
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<Home/>}/>
+              <Route path="/" element={<Home />}/>
             </Route>
             <Route path="/brands">
               <Route index element={<List data  />}/>

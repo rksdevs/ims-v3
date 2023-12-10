@@ -13,15 +13,23 @@ import { resetProducts } from "../../features/product/productSlice";
 import { resetOrders } from "../../features/order/orderSlice";
 
 const Topbar = () => {
-    const user = useSelector((state)=>state.user.userDetails)
+    const user = JSON.parse(localStorage.getItem('userDetails')) || null;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const logout = ()=>{
         dispatch(resetOrders());
         dispatch(resetProducts());
-        dispatch(userLogout())
-    }   
-  return (
+        dispatch(userLogout());
+        navigate('/login', {replace: true});
+    }
+    
+    if (!user) {
+        return <div>
+            Loading Top bar
+        </div>
+    }
+
+  return ( user &&
     <div className="topbar">
         <div className="topbarWrapper">
         <div className="topLeft" onClick={e=> (navigate("/"))} >

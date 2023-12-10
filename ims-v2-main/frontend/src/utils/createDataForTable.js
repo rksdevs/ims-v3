@@ -12,7 +12,7 @@ import axios from "axios";
 // }
 
 export const createTableData = ({data, type}) => {
-    console.log(data, "testing for table");
+    // console.log(data, "testing for table");
     if (!data || data.length === 0) {
       console.log("data is null")
       // Handle the case where data is null, undefined, or empty

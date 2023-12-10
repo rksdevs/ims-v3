@@ -6,6 +6,7 @@ const WidgetsLg = ({data}) => {
     <div className="widgetsLg">
         <h3 className="widgetsLgTitle">Recent Sales</h3>
         <table className="widgetsLgTable">
+            <thead>
             <tr className="widgetsLgTr">
                 <th className="widgetsLgTh">Customer</th>
                 <th className="widgetsLgTh">Date</th>
@@ -13,6 +14,8 @@ const WidgetsLg = ({data}) => {
                 <th className="widgetsLgTh">Bill No</th>
                 <th className="widgetsLgTh">Amount</th>
             </tr>
+            </thead>
+            <tbody>
             {data?.map((item)=>(<tr className="widgetsLgTr" key={item._id}>
                 <td className="widgetsLgCust">
                     <img src={NoImg} alt="customer img" className="widgetsLgImg"/>
@@ -24,6 +27,7 @@ const WidgetsLg = ({data}) => {
                 <td className="widgetsLgAmount">₹2000</td>
                 <td className="widgetsLgButton"><button>View</button></td>
             </tr>))}
+            </tbody>
         </table>
     </div>
   )
