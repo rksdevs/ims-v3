@@ -46,20 +46,24 @@ export const createEnhancedTableData = ({data, type}) => {
       numeric: true,
       disablePadding: true
     })
-    
-    rows = data.map((obj, index)=>{
-      let rowObj = {slNo: index + 1};
-      keys.forEach((key)=>{
+
+    rows = data.map((obj, index) => {
+      let rowObj = { slNo: index + 1 };
+      keys.forEach((key) => {
         if (key !== "_id") {
-          rowObj[key]= obj[key];
-        } else if (key === "brand") {
-          rowObj[key] = obj[key].brandName;
+          if (key === "brand") {
+            rowObj[key] = obj[key].brandName;
+          } else if (key === "category") {
+            rowObj[key] = obj[key].categoryName;
+          } else {
+            rowObj[key] = obj[key];
+          }
         } else {
           rowObj.id = obj[key];
         }
       });
       return rowObj;
-    })
+    });
 
     return {
       columns,

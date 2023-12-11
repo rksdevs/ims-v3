@@ -9,7 +9,7 @@ const ProductList = () => {
   const [pathName, setPathname] = useState(useLocation().pathname.slice(1).toLocaleLowerCase());
   const productData = JSON.parse(localStorage.getItem('productData')) || null;
 
-  const memoizedProductData = useMemo(()=>productData, [productData])
+  const memoizedProductData = useMemo(()=>productData, [productData]);
 
   return (
     <div className="listContainer">
