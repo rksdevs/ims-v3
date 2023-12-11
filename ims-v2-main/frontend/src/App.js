@@ -15,6 +15,7 @@ import { fetchProducts } from "./features/product/productService";
 import ProductList from "./pages/list/ProductList";
 import OrderList from "./pages/list/OrderList";
 import BrandList from "./pages/list/BrandList";
+import CategoryList from "./pages/list/CategoryList";
 
 function App() {
     const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || null;
@@ -39,6 +40,11 @@ function App() {
             <Route path="/brands">
               <Route index element={<BrandList />}/>
               <Route path="addBrands" element={<New />}/>
+              <Route path=":brandId" element={<Single />}/>
+            </Route>
+            <Route path="/category">
+              <Route index element={<CategoryList />}/>
+              <Route path="addCategory" element={<New />}/>
               <Route path=":brandId" element={<Single />}/>
             </Route>
             <Route element={<ProtectedRoute />}> 

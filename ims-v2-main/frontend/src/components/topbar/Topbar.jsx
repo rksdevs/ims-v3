@@ -12,6 +12,7 @@ import { userLogout } from "../../features/authSlice";
 import { resetProducts } from "../../features/product/productSlice";
 import { resetOrders } from "../../features/order/orderSlice";
 import { resetBrands } from "../../features/brands/brandSlice";
+import { resetCategory } from "../../features/category/categorySlice";
 
 const Topbar = () => {
     const user = JSON.parse(localStorage.getItem('userDetails')) || null;
@@ -21,6 +22,7 @@ const Topbar = () => {
         dispatch(resetOrders());
         dispatch(resetProducts());
         dispatch(resetBrands());
+        dispatch(resetCategory());
         dispatch(userLogout());
         navigate('/login', {replace: true});
     }

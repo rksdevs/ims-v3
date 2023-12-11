@@ -10,6 +10,7 @@ const brandRoute = require("./routes/brandRoute");
 const productRoute = require("./routes/productRoute");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute = require("./routes/orderRoute");
+const categoryRoute = require("./routes/categoryRoute");
 
 const app = express();
 const PORT = 3300;
@@ -39,6 +40,7 @@ app.use("/api/brands", brandRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/category", categoryRoute);
 
 //server
 app.listen(PORT, ()=>{

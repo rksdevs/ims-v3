@@ -119,17 +119,17 @@ const getAllProducts = async(req,res) => {
     const qBrand = req.query.brand;
 
     if(qNewest) {
-        products = await Product.find().sort({createdAt: -1}).limit(1);
+        products = await Product.find().sort({createdAt: -1}).limit(1).populate('brand category');
     } else if (qCategory) {
         products = await Product.find({
             category: {
                 $in: [qCategory],
             }
-        })
+        }).populate('brand category')
     } else if (qBrand) {
-        products = await Product.find({qBrand})
+        products = await Product.find({qBrand}).populate('brand category')
     } else {
-        products = await Product.find().select("productName _id image quantity price size color brand category");
+        products = await Product.find().select("productName _id image quantity price size color brand category").populate('brand category');
     }
 
 

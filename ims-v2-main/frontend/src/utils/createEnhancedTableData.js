@@ -24,7 +24,7 @@ export const createEnhancedTableData = ({data, type}) => {
         disablePadding: true
       }));
 
-    } else if (type === "orders" || type === "brands") { 
+    } else if (type === "orders" || type === "brands" || type === "category") { 
       columns = keys.filter((key)=> key !== "_id").map((elem)=> ({
         id: elem,
         label: elem.charAt(0).toUpperCase() + elem.slice(1),

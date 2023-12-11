@@ -12,6 +12,7 @@ import { fetchProducts } from "../../features/product/productService"
 import { fetchOrders } from "../../features/order/orderService"
 import { fetchUser } from "../../features/authSlice"
 import { fetchBrands } from "../../features/brands/brandService"
+import { fetchCategories } from "../../features/category/categoryService"
 
 
 //need to send these values from app page, use login/logout, use reducer
@@ -26,7 +27,8 @@ const Home = () => {
     if (user) {
       dispatch(fetchProducts());
       dispatch(fetchOrders());
-      dispatch(fetchBrands())
+      dispatch(fetchBrands());
+      dispatch(fetchCategories());
       //need to persist user state from
     }
   }, [])

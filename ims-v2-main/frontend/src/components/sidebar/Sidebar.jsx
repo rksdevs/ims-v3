@@ -20,18 +20,18 @@ const Sidebar = () => {
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Dashboard</h3>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem active">
+                    <li className="sidebarListItem active" onClick={()=>navigate("/")}>
                         <LineStyleIcon className="sidebarIcon"/>
                         Home
                     </li>
-                    <li className="sidebarListItem">
+                    {/* <li className="sidebarListItem">
                         <TimelineIcon className="sidebarIcon"/>
                         Analytics
                     </li>
                     <li className="sidebarListItem">
                         <TrendingUpIcon className="sidebarIcon"/>
                         Sales
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             <div className="sidebarMenu">
@@ -40,6 +40,19 @@ const Sidebar = () => {
                     <li className="sidebarListItem" onClick={()=>navigate("/brands")}>
                         <ListIcon className="sidebarIcon"/>
                         All Brands
+                    </li>
+                    <li className="sidebarListItem">
+                        <PlaylistAddIcon className="sidebarIcon"/>
+                        Add Brand
+                    </li>
+                </ul>
+            </div>
+            <div className="sidebarMenu">
+                <h3 className="sidebarTitle">Categories</h3>
+                <ul className="sidebarList">
+                    <li className="sidebarListItem" onClick={()=>navigate("/category")}>
+                        <ListIcon className="sidebarIcon"/>
+                        All Categories
                     </li>
                     <li className="sidebarListItem">
                         <PlaylistAddIcon className="sidebarIcon"/>
