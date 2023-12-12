@@ -6,7 +6,8 @@ import { fetchProducts } from "./productService";
 const initialState = {
     isLoading: false,
     products: [],
-    error: ''
+    isError: false,
+    errorMessage: ''
 }
 
 
@@ -26,12 +27,14 @@ const productSlice = createSlice({
         builder.addCase(fetchProducts.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.products = action.payload;
-            state.error = '';
+            state.isError = false;
+            state.errorMessage = '';
         })
         builder.addCase(fetchProducts.rejected, (state, action)=>{
             state.isLoading = false;
             state.products = [];
-            state.error = action.payload;
+            state.isError = true
+            state.errorMessage = action.payload;
         })
     }
 })

@@ -14,14 +14,14 @@ const addCategory = async (req, res) => {
         //check if the user is an Admin
         const admin = req.user.isAdmin;
         if(!admin) {
-            return res.status(400).send({msg: "User must be an admin to add a brand!"})
+            return res.status(400).send({message: "User must be an admin to add a brand!"})
         }
 
         //check if the same brand exists
         const existingCategory = await Category.findOne({categoryName: req.body.categoryName});
 
         if(existingCategory) {
-            return res.status(400).send({msg: "Category Already Exists!"})
+            return res.status(400).send({message: "Category Already Exists!"})
         }
 
     
@@ -42,7 +42,7 @@ const editCategory = async(req,res) => {
         //check if the user is an Admin
         const admin = req.user.isAdmin;
         if(!admin) {
-            return res.status(400).send({msg: "User must be an admin to update a category!"})
+            return res.status(400).send({message: "User must be an admin to update a category!"})
         }
 
         const updatedCategory = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -60,7 +60,7 @@ const deleteCategory = async(req,res) =>{
      //check if the user is an Admin
      const admin = req.user.isAdmin;
      if(!admin) {
-         return res.status(400).send({msg: "User must be an admin to update a category!"})
+         return res.status(400).send({message: "User must be an admin to update a category!"})
      }
      
      await Category.findByIdAndDelete(req.params.id);
@@ -75,6 +75,10 @@ const deleteCategory = async(req,res) =>{
 
 const getAllCategories = async(req,res) => {
     try {
+        const verifyAdmin = req.user.isAdmin;
+      if(!verifyAdmin) {
+          return res.status(400).json({message: "Unauthorized!"});
+      }
         const projection = {categoryName: 1, Cgst: 1, Sgst: 1}
         const allCategories = await Category.find().select(projection);
         res.status(200).json(allCategories)

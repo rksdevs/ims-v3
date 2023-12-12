@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../features/authSlice";
+import { toast } from "react-toastify";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ function Login() {
     const {username, password} = formData;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {userDetails, isLoggedIn} = useSelector((state)=>state.user);
+    const {userDetails, isLoggedIn, isError, errorMessage} = useSelector((state)=>state.user);
     const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(localStorage.getItem("isLoggedIn")) || null) //fix for user not landing on home page if navigating to /login without clearing the userdetails/isLoggedin from localstorate
 
     const onChange = (event) => {
@@ -39,6 +40,8 @@ function Login() {
     useEffect(() => {
         if(isLoggedIn){
             setIsAuthenticated(true);
+        } else if(isError) {
+            toast.error(errorMessage)
         }
     }, [userDetails, isLoggedIn, navigate])
     

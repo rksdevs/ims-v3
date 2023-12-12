@@ -11,7 +11,7 @@ const addProduct = async(req, res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         const {productName, image, size, color, quantity, price, description, brand, category} = req.body;
@@ -20,7 +20,7 @@ const addProduct = async(req, res) => {
         const brandStatus = await Brand.findOne({_id: brand, status: "Active"});
 
         if(!brandStatus) {
-            return res.status(400).json({msg: "Brand is not available!"});
+            return res.status(400).json({message: "Brand is not available!"});
         }
 
 
@@ -54,11 +54,11 @@ const deleteProduct = async(req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         } 
         
         await Product.findByIdAndDelete(req.params.id);
-        res.status(200).json({msg: "Product deleted!"})
+        res.status(200).json({message: "Product deleted!"})
 
     } catch (error) {
         console.log(error);
@@ -74,7 +74,7 @@ const editProduct = async(req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         } 
         
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {new:true});
@@ -91,6 +91,12 @@ const editProduct = async(req,res) => {
 
 const getSpecificProduct = async(req,res) => {
     try {
+
+        const verifyAdmin = req.user.isAdmin;
+        if(!verifyAdmin) {
+            return res.status(400).json({message: "Unauthorized!"});
+        } 
+
         let product = await Product.findById(req.params.id);
         res.status(200).json(product);
 
@@ -107,7 +113,7 @@ const getAllProducts = async(req,res) => {
       //verify admin
       const verifyAdmin = req.user.isAdmin;
       if(!verifyAdmin) {
-          return res.status(400).json({msg: "Unauthorized!"});
+          return res.status(400).json({message: "Unauthorized!"});
       };
       
     //   const allProducts = await Product.find();

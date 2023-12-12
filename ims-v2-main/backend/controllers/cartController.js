@@ -8,7 +8,7 @@ const createCart = async (req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
        const savedCart = await new Cart(newCart).save(); // need to test this
@@ -26,7 +26,7 @@ const updateCart = async(req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         const updatedCart = await Cart.findByIdAndUpdate(req.params.id, req.body, {new:true}) 
@@ -42,11 +42,11 @@ const deleteCart = async(req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         await Cart.findByIdAndDelete(req.params.id) 
-        res.status(200).json({msg: "Cart Deleted"});
+        res.status(200).json({message: "Cart Deleted"});
     } catch (error) {
         console.log(error);
         return res.status(500).json(error);
@@ -58,7 +58,7 @@ const getAllCarts = async(req,res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
        const allCarts = await Cart.find() 

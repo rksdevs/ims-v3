@@ -8,7 +8,7 @@ const createOrder = async (req, res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         const savedOrder = await new Order(newOrder).save();
@@ -28,7 +28,7 @@ const updateOrder = async (req, res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, {new:true});
@@ -49,12 +49,12 @@ const deleteOrder = async (req, res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         await Order.findByIdAndDelete(req.params.id);
 
-        res.status(200).json({msg: "Order deleted!"});
+        res.status(200).json({message: "Order deleted!"});
 
         
     } catch (error) {
@@ -71,7 +71,7 @@ const getAllOrder = async (req, res) => {
         //verify admin
         const verifyAdmin = req.user.isAdmin;
         if(!verifyAdmin) {
-            return res.status(400).json({msg: "Unauthorized!"});
+            return res.status(400).json({message: "Unauthorized!"});
         }
 
         // const allOrders = await Order.find().select(projection).populate('items.productId', 'productName');

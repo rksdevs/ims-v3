@@ -23,7 +23,7 @@ const registerUser = async (req,res) => {
         const existingUser = await User.findOne({username: req.body.username});
         if (existingUser) {
             return res.status(400).send({
-                msg: "User already exists!",
+                message: "User already exists!",
                 ...req.body
             })
         }
@@ -51,16 +51,16 @@ try {
     //if no user found
     if(!user) {
         return res.status(400).send({
-            msg: "No user found, please register!"
+            message: "No user found, please register!"
         });
     }
 
     //if user found check password
-    const validatePassword = bcrypt.compare(req.body.password, user.password);
+    const validatePassword = await bcrypt.compare(req.body.password, user.password);
 
     if(!validatePassword) {
         return res.status(400).send({
-            msg: "Incorrect Password!"
+            message: "Incorrect Password!"
         });
     }
 

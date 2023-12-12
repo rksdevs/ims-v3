@@ -4,7 +4,8 @@ import { fetchBrands } from "./brandService";
 const initialState = {
     isLoading: false,
     brands: [],
-    error: ''
+    isError: false,
+    errorMessage: ''
 }
 
 const brandSlice = createSlice({
@@ -21,12 +22,14 @@ const brandSlice = createSlice({
         builder.addCase(fetchBrands.fulfilled, (state, action)=> {
             state.isLoading = false;
             state.brands = action.payload;
-            state.error = ""
+            state.isError = false;
+            state.errorMessage = ""
         })
         builder.addCase(fetchBrands.rejected, (state, action)=> {
             state.isLoading = false;
             state.brands = [];
-            state.error = action.payload
+            state.isError = true;
+            state.errorMessage = action.payload
         })
     }
 })

@@ -4,7 +4,8 @@ import { fetchOrders } from "./orderService";
 const initialState = {
     isLoading: false,
     orders: [],
-    error: ''
+    isError: false,
+    errorMessage: ''
 }
 
 const orderSlice = createSlice({
@@ -23,12 +24,14 @@ const orderSlice = createSlice({
         builder.addCase(fetchOrders.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.orders = action.payload;
-            state.error = ''
+            state.isError = false;
+            state.errorMessage = ''
         })
         builder.addCase(fetchOrders.rejected, (state, action)=>{
             state.isLoading = false;
             state.orders = [];
-            state.error = action.payload;
+            state.isError = true;
+            state.errorMessage = action.payload;
         })
     }
 })

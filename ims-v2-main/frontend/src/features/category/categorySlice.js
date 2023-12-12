@@ -4,7 +4,8 @@ import { fetchCategories } from "./categoryService";
 const initialState = {
     isLoading: false,
     categories: [],
-    error: ''
+    isError: false,
+    errorMessage: ''
 }
 
 const categorySlice = createSlice({
@@ -20,12 +21,14 @@ const categorySlice = createSlice({
         builder.addCase(fetchCategories.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.categories = action.payload;
-            state.error = '';
+            state.isError = false;
+            state.errorMessage = '';
         })
         builder.addCase(fetchCategories.rejected, (state, action)=>{
             state.isLoading = false;
             state.categories = [];
-            state.error = action.payload
+            state.isError = true;
+            state.errorMessage = action.payload
         })
     }
 })

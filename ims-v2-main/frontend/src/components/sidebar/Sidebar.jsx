@@ -41,7 +41,7 @@ const Sidebar = () => {
                         <ListIcon className="sidebarIcon"/>
                         All Brands
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={()=>navigate("/brands/addBrands")}>
                         <PlaylistAddIcon className="sidebarIcon"/>
                         Add Brand
                     </li>
@@ -56,7 +56,7 @@ const Sidebar = () => {
                     </li>
                     <li className="sidebarListItem">
                         <PlaylistAddIcon className="sidebarIcon"/>
-                        Add Brand
+                        Add Category
                     </li>
                 </ul>
             </div>

@@ -7,7 +7,8 @@ const initialState = {
     isLoading: false,
     userDetails: {},
     isLoggedIn: false,
-    error: ''
+    isError: false,
+    errorMessage: ''
 }
 
 //async action reducer function to fetch users using createAsyncThunk
@@ -50,17 +51,20 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.userDetails = action.payload;
             state.isLoggedIn = true;
-            state.error = '';
+            state.isError = false;
+            state.errorMessage = '';
         })
         builder.addCase(fetchUser.rejected, (state, action)=>{
             state.isLoading = false;
             state.userDetails = {};
             state.isLoggedIn = false;
-            state.error = action.payload;
+            state.isError = true;
+            state.errorMessage = action.payload;
         })
         builder.addCase(userLogout.fulfilled, (state)=>{
             state.userDetails = {};
             state.isLoggedIn = false;
+            state.isError = false;
         })
     }
 })

@@ -13,14 +13,14 @@ const addBrand = async (req, res) => {
         //check if the user is an Admin
         const admin = req.user.isAdmin;
         if(!admin) {
-            return res.status(400).send({msg: "User must be an admin to add a brand!"})
+            return res.status(400).send({message: "User must be an admin to add a brand!"})
         }
 
         //check if the same brand exists
         const existingBrand = await Brand.findOne({brandName: req.body.brandName});
 
         if(existingBrand) {
-            return res.status(400).send({msg: "Brand Already Exists!"})
+            return res.status(400).send({message: "Brand Already Exists!"})
         }
 
     
@@ -41,7 +41,7 @@ const editBrand = async(req,res) => {
         //check if the user is an Admin
         const admin = req.user.isAdmin;
         if(!admin) {
-            return res.status(400).send({msg: "User must be an admin to update a brand!"})
+            return res.status(400).send({message: "User must be an admin to update a brand!"})
         }
 
         const updatedBrand = await Brand.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -59,11 +59,11 @@ const deleteBrand = async(req,res) =>{
      //check if the user is an Admin
      const admin = req.user.isAdmin;
      if(!admin) {
-         return res.status(400).send({msg: "User must be an admin to update a brand!"})
+         return res.status(400).send({message: "User must be an admin to update a brand!"})
      }
      
      await Brand.findByIdAndDelete(req.params.id);
-     res.status(200).json({msg: "Brand Deleted!"})
+     res.status(200).json({message: "Brand Deleted!"})
         
     } catch (error) {
         console.log(error);
@@ -74,6 +74,10 @@ const deleteBrand = async(req,res) =>{
 
 const getAllBrands = async(req,res) => {
     try {
+        const verifyAdmin = req.user.isAdmin;
+        if(!verifyAdmin) {
+            return res.status(400).json({message: "Unauthorized!"});
+        }
         const allBrands = await Brand.aggregate([{
             $project: {
                 _id: 1, 

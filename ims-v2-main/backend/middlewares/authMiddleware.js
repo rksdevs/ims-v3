@@ -11,12 +11,12 @@ const verifyAdmin = async (req,res, next) => {
         console.log(token)
 
         if(!token) {
-            return res.status(400).send({msg:"No Authorization Cookie Found!"})
+            return res.status(400).send({message:"No Authorization Cookie Found!"})
         }
 
         jwt.verify(token, process.env.JWT_SECRET, async(error, decoded)=>{
             if(error) {
-                return res.status(400).send({msg: "Unauthorized!"})
+                return res.status(400).send({message: "Unauthorized!"})
             } else {
                 req.user = await User.findById(decoded.id).select("-password");
                 next();

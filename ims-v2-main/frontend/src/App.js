@@ -16,6 +16,8 @@ import ProductList from "./pages/list/ProductList";
 import OrderList from "./pages/list/OrderList";
 import BrandList from "./pages/list/BrandList";
 import CategoryList from "./pages/list/CategoryList";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
     const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || null;
@@ -63,6 +65,7 @@ function App() {
             </Route>
           {/* </Route> */}
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );
