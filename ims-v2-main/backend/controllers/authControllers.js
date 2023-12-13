@@ -77,7 +77,7 @@ try {
 
     res.cookie("access_token", token, {httpOnly: true}).status(200).json({...otherDetails, isAdmin})
 
-    console.log(req.cookies.access_token)
+    // console.log(req.cookies.access_token)
     
     
 } catch (error) {

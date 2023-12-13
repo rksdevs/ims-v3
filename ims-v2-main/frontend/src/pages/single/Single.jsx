@@ -5,9 +5,31 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import BrandOne from "../../assets/images/product1.jpg"
 import Chart from "../../components/chart/Chart";
 import { chartData } from "../../dummyData";
+import axios from "axios";
 
 
 const Single = () => {
+  const handleClickHardcoded = async (e) => {
+    e.preventDefault();
+    console.log("clicked");
+
+    const url = 'api/brands/allBrands';
+    console.log('Request URL:', url);
+
+    await axios.get("http://localhost:3300/api/product/allProducts", { withCredentials: true });
+    // await axios.get(url, { withCredentials: true });
+  };
+
+  const handleClickProxy = async (e) => {
+    e.preventDefault();
+    console.log("clicked");
+
+    const url = 'api/product/allProducts';
+    console.log('Request URL:', url);
+
+    // await axios.get("http://localhost:3300/api/brands/allBrands", { withCredentials: true });
+    await fetch("api/product/allProducts",{method: 'GET'});
+  };
   return (
     <div className="singleContainer">
       <Topbar />
@@ -36,6 +58,8 @@ const Single = () => {
         <div className="bottom">
           <div className="bottomTitle">
             <h3>Products of the Brand</h3>
+            <button onClick={handleClickHardcoded}>Click to trigger Hardcoded url</button>
+            <button onClick={handleClickProxy}>Click to trigger proxy</button>
           </div>
           <div className="bottomContents">
             {/* <Datatable /> */}

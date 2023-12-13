@@ -3,8 +3,6 @@ import {BrowserRouter, Routes, Route, Navigate, useNavigate} from "react-router-
 // import Sidebar from "./components/sidebar/Sidebar";
 // import Topbar from "./components/topbar/Topbar";
 import Home from "./pages/home/Home";
-// import List from "./pages/list/List";
-import New from "./pages/new/New";
 import Single from "./pages/single/Single"
 import Login from "./pages/login/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,6 +16,8 @@ import BrandList from "./pages/list/BrandList";
 import CategoryList from "./pages/list/CategoryList";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import NewBrand from "./pages/new/NewBrand";
+import TestNew from "./pages/new/TestNew";
 
 function App() {
     const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || null;
@@ -38,31 +38,20 @@ function App() {
             <Route element={<ProtectedRoute />}>
               {/*Page reload and then logout --> page throttled due to multiple protected route triggers fix */}
               <Route path="/" element={<Home />}/>
+              <Route path="brands/*" element={<BrandList />} />
+              <Route path="brands/addBrands" element={<NewBrand />} />
+              <Route path="brands/:brandId" element={<Single />} />
+              <Route path="category/*" element={<CategoryList />} />
+              <Route path="category/addCategory" element={<TestNew />} />
+              <Route path="category/:categoryId" element={<Single />} />
+              <Route path="products/*" element={<ProductList />} />
+              <Route path="products/addProducts" element={<TestNew />} />
+              <Route path="products/:productId" element={<Single />} />
+              <Route path="orders/*" element={<OrderList />} />
+              <Route path="orders/createOrder" element={<TestNew />} />
+              <Route path="orders/:orderId" element={<Single />} />
             </Route>
-            <Route path="/brands">
-              <Route index element={<BrandList />}/>
-              <Route path="addBrands" element={<New />}/>
-              <Route path=":brandId" element={<Single />}/>
-            </Route>
-            <Route path="/category">
-              <Route index element={<CategoryList />}/>
-              <Route path="addCategory" element={<New />}/>
-              <Route path=":brandId" element={<Single />}/>
-            </Route>
-            <Route element={<ProtectedRoute />}> 
-              <Route path="/products">
-                <Route index element={<ProductList />}/>
-                <Route path="addProducts" element={<New />}/>
-                <Route path=":productId" element={<Single />}/>
-              </Route>
-            </Route>
-            <Route element={<ProtectedRoute />}>
-              <Route path="/orders">
-                <Route index element={<OrderList />}/>
-                <Route path="createOrder" element={<New />}/>
-                <Route path=":orderId" element={<Single />}/>
-              </Route>
-            </Route>
+            
           {/* </Route> */}
         </Routes>
         <ToastContainer />

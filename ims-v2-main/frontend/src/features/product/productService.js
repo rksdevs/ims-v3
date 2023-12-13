@@ -6,7 +6,7 @@ import { createEnhancedTableData } from "../../utils/createEnhancedTableData";
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async(_,thunkAPI)=>{
     try {
-        const response = await axios.get("product/allProducts", {withCredentials: true})
+        const response = await axios.get("/product/allProducts", {withCredentials: true})
         if(response.data) {
             const enhancedProductData = createEnhancedTableData({data: response.data, type: "products"})
             localStorage.setItem('productData', JSON.stringify(enhancedProductData));

@@ -14,7 +14,7 @@ const initialState = {
 //async action reducer function to fetch users using createAsyncThunk
 export const fetchUser = createAsyncThunk('user/fetchUser', async({username, password}, {rejectWithValue})=>{
     try {
-        const response = await axios.post('auth/login', {username, password})
+        const response = await axios.post('/auth/login', {username, password})
         if(response.data) {
             localStorage.setItem('userDetails', JSON.stringify(response.data))
             localStorage.setItem("isLoggedIn", true);
