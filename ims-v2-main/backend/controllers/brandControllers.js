@@ -25,8 +25,8 @@ const addBrand = async (req, res) => {
 
     
         await newBrand.save();
-        const {brandName, status} = newBrand._doc;
-        res.status(200).send({brandName, status})
+        const {brandName, status, _id} = newBrand._doc;
+        res.status(200).send({brandName, status, _id})
         
     } catch (error) {
         console.log(error);

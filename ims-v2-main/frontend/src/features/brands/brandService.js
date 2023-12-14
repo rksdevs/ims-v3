@@ -22,11 +22,21 @@ export const fetchBrands = createAsyncThunk('brands/fetchBrands', async(_, thunk
 export const addNewBrand = createAsyncThunk('brands/addNewBrand', async({brandName, status}, thunkAPI)=>{
     try {
         const response = await axios.post(`${API_URL}/addBrand`, {brandName, status}, {withCredentials: true})
-        console.log(response.data)
         return response.data
     } catch (error) {
         const message = (error.message && error.response.data && error.response.data.message) || error.message || error.toString()
 
         return thunkAPI.rejectWithValue(message);
+    }
+})
+
+export const deleteBrand = createAsyncThunk('brands/deleteBrand', async(deleteID, thunkAPI)=>{
+    try {
+        const response = await axios.delete(`/brands/deleteBrand/${deleteID}`, {withCredentials: true});
+        return response.data;
+    } catch (error) {
+        const message = (error.message && error.response.data && error.response.data.message) || error.message || error.toString()
+
+        return thunkAPI.rejectWithValue(message); 
     }
 })

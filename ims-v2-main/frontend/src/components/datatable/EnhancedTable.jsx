@@ -21,68 +21,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
-
-// const rows = [
-//     {
-//         "slNo": 1,
-//         "id": "644e7ca6701c218de566e5dc",
-//         "productName": "cycle 2",
-//         "image": "image2",
-//         "quantity": 15,
-//         "price": 150,
-//         "size": "M",
-//         "color": "White",
-//         "brand": "6445262fae2f16ecca464631",
-//         "category": [
-//             "CBU",
-//             "Womens"
-//         ]
-//     },
-//     {
-//         "slNo": 2,
-//         "id": "644e7c6c701c218de566e5d8",
-//         "productName": "cycle 1",
-//         "image": "image2",
-//         "quantity": 10,
-//         "price": 100,
-//         "size": "S",
-//         "color": "Black",
-//         "brand": "644525d1105ca518eec937c6",
-//         "category": [
-//             "CBU",
-//             "Mens"
-//         ]
-//     },
-//     {
-//         "slNo": 3,
-//         "id": "644e88ef5b8aadb36b53f5d9",
-//         "productName": "Jet Tyre",
-//         "image": "Jet Tyre",
-//         "quantity": 20,
-//         "price": 50,
-//         "size": "20",
-//         "color": "Black",
-//         "brand": "6445262fae2f16ecca464631",
-//         "category": [
-//             "Spare"
-//         ]
-//     },
-//     {
-//         "slNo": 4,
-//         "id": "644e89385b8aadb36b53f5dd",
-//         "productName": "Hercules Chain",
-//         "image": "Hercules Chain",
-//         "quantity": 50,
-//         "price": 30,
-//         "size": "NA",
-//         "color": "Black",
-//         "brand": "6445262fae2f16ecca464631",
-//         "category": [
-//             "Spare"
-//         ]
-//     }
-// ];
+import { useLocation } from 'react-router-dom';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -116,62 +55,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-// const headCells = [
-//     {
-//         id: "slNo",
-//         label: "Sl No",
-//         numeric: true,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "productName",
-//         label: "Product Name",
-//         numeric: false,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "quantity",
-//         label: "Quantity",
-//         numeric: true,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "price",
-//         label: "Price",
-//         numeric: true,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "size",
-//         label: "Size",
-//         numeric: false,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "color",
-//         label: "Color",
-//         numeric: false,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "brand",
-//         label: "Brand",
-//         numeric: false,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "category",
-//         label: "Category",
-//         numeric: false,
-//         disablePadding: true,
-//     },
-//     {
-//         id: "id",
-//         label: "Id",
-//         numeric: true,
-//         disablePadding: true,
-//     }
-// ]
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headCells } =
@@ -231,6 +114,8 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const { numSelected, selectedItem } = props;
+  const pathName = useLocation().pathname
+  const heading = pathName.charAt(1).toLocaleUpperCase() + pathName.slice(2);
 
   return (
     <Toolbar
@@ -259,11 +144,11 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {heading}
         </Typography>
       )}
 
-      {numSelected > 0 ? (
+      {numSelected >0 ? (
         <Tooltip title="Delete">
           <IconButton onClick={(e)=>{console.log(selectedItem)}}>
             <DeleteIcon />

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {toast} from 'react-toastify'
 import axios from 'axios';
 import WidgetsSm from '../../components/widgetsSM/WidgetsSm';
+import { resetBrandsSuccess } from '../../features/brands/brandSlice';
 
 const NewBrand = ({inputs, title}) => {
   // const [pathName, setPathname] = useState(useLocation().pathname.split("/"));
@@ -47,30 +48,25 @@ const NewBrand = ({inputs, title}) => {
     ))
   }
 
-  // useEffect(()=>{
-  //   console.log('triggered from add brand')
-  //   dispatch(fetchBrands());
-  // }, [dispatch, brands])
+  useEffect(()=>{
+    if(isError) {
+      toast.error(errorMessage)
+    } 
 
-  // useEffect(()=>{
-  //   if(isError) {
-  //     toast.error(errorMessage)
-  //   } else if (!isLoading && isSuccess) {
-  //     toast.success("Brand Added")
-  //   }
+    if (isSuccess) {
+      dispatch(fetchBrands());
+      toast.success("Brand Added")
+      dispatch(resetBrandsSuccess());
+    }
 
-  // }, [dispatch,isLoading, isError, isSuccess, errorMessage])
+    dispatch(resetBrandsSuccess());
+
+  }, [dispatch, isError, isSuccess, errorMessage])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(brandName, status);
     dispatch(addNewBrand({brandName, status}));
-    if(isError) {
-      toast.error(errorMessage)
-    } else if (!isLoading && isSuccess && !isError) {
-      dispatch(fetchBrands());
-      toast.success("Brand Added")
-    }
   }
 
   return (
@@ -124,18 +120,18 @@ const NewBrand = ({inputs, title}) => {
               </form>
             </div>
           </div>
-          {/* <div className='widgets-container'>
+          <div className='widgets-container'>
           <h3 className="widgetsSmTitle" >Stock Insights</h3>
             <ul className="widgetsSmList">
                 {brands?.map((item)=>(
-                <li className="widgetsSmListItem" >
+                <li className="widgetsSmListItem" key={item._id}>
                     <span className="widgetsSmProductName">{item.brandName}</span>
                     <span className="widgetsSmProductQuantity">{item.status}</span>
                     <span className="widgetsSmProductQuantity">{item._id}</span>
                 </li>
                 ))}
             </ul>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
